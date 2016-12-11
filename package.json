@@ -1,0 +1,21 @@
+{
+  "scripts": {
+    "test": "webpack && node ./built/index.js"
+  },
+  "dependencies": {
+    "moment": "^2.17.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.20.0",
+    "babel-loader": "^6.2.9",
+    "babel-preset-latest": "^6.16.0",
+    "webpack": "2.1.0-beta.25"
+  },
+  "name": "twitter-format-for-moment",
+  "version": "0.1.0",
+  "main": "index.js",
+  "license": "MIT",
+  "description": "format times for tweets like the way Twitter does ",
+  "repository": "https://github.com/VanishingDante/twitter-format-for-moment.git",
+  "author": "vanis"
+}
