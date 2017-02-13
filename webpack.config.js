@@ -2,18 +2,18 @@ const path = require('path')
 const webpack = require('webpack')
 
 const PATHS = {
-  src: path.join(__dirname, './src/index.js'),
-  built: path.join(__dirname, './built')
+  demo: path.join(__dirname, './demo/index.js'),
+  built: path.join(__dirname, './demo')
 }
 
 module.exports = {
   devtool: 'inline-source-map',
   entry: [
-    PATHS.src
+    PATHS.demo
   ],
   output: {
     path: PATHS.built,
-    filename: 'index.js',
+    filename: 'compiled.js',
   },
   module: {
     rules: [

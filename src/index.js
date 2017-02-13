@@ -1,17 +1,62 @@
-import { twitterShort, twitterLong } from '../index.js'
 import moment from 'moment'
 
-let date = new moment("20111031", "YYYYMMDD")
+// Times in millisecond
+const second = 1e3
+const minute = 6e4
+const hour = 36e5
+const day = 864e5
+const week = 6048e5
 
-console.log(twitterShort(date))
-console.log(twitterLong(date))
+const formats = {
+  seconds: {
+    short: 's',
+    long: ' sec'
+  },
+  minutes: {
+    short: 'm',
+    long: ' min'
+  },
+  hours: {
+    short: 'h',
+    long: ' hr'
+  },
+  days: {
+    short: 'd',
+    long: ' day'
+  }
+}
 
-date = new moment().startOf('day')
+export const twitterFormat = (date, format) => {
+  let diff = Math.abs(date.diff(new moment()))
+  let unit, num, unitStr
+  if (diff <= second) {
+    unit = 'seconds'
+    num = 1
+  } else if (diff < minute) {
+    unit = 'seconds'
+  } else if (diff < hour) {
+    unit = 'minutes'
+  } else if (diff < day) {
+    unit = 'hours'
+  } else if (format === 'short') {
+    if (diff < week) {
+      unit = 'days'
+    } else {
+      return date.format('M/D/YY')
+    }
+  } else {
+    return date.format('MMM D')
+  }
+  if (!(num && unit)) {
+    num = moment.duration(diff)[unit]()
+  }
+  unitStr = unit = formats[unit][format]
+  if (format === 'long' && num > 1) {
+    unitStr += 's'
+  }
+  return num + unitStr
+}
 
-console.log(twitterShort(date))
-console.log(twitterLong(date))
 
-date = new moment().startOf('hour')
-
-console.log(twitterShort(date))
-console.log(twitterLong(date))
+export const twitterShort = date => twitterFormat(date, 'short')
+export const twitterLong = date => twitterFormat(date, 'long')
